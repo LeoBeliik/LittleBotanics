@@ -7,8 +7,8 @@ plugins {
 
 
 version = "1.${mod_version}-${mc_version}"
-group = 'com.leobeliik.littlebotanica' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'littlebotanica'
+group = 'com.leobeliik.littlebotanics' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'littlebotanics'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -29,7 +29,7 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
-                littlebotanica {
+                littlebotanics {
                     source sourceSets.main
                 }
             }
@@ -46,7 +46,7 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
-                littlebotanica {
+                littlebotanics {
                     source sourceSets.main
                 }
             }
@@ -60,13 +60,13 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'littlebotanica', '--all', '--output', "\"" + file("src/generated/resources").toString() + "\"", "--validate", "--existing", "\"" + sourceSets.main.resources.srcDirs[0] + "\""
+            args '--mod', 'littlebotanics', '--all', '--output', "\"" + file("src/generated/resources").toString() + "\"", "--validate", "--existing", "\"" + sourceSets.main.resources.srcDirs[0] + "\""
 
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
-                littlebotanica {
+                littlebotanics {
                     source sourceSets.main
                 }
             }
@@ -87,7 +87,7 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}:api")
-    runtimeOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
+    implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
     implementation fg.deobf("dev.murad.littlelogistics:littlelogistics:${rootProject.ll_version}")
     implementation fg.deobf("vazkii.patchouli:Patchouli:${patchi_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
@@ -98,10 +98,10 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "littlebotanica",
+                "Specification-Title"     : "littlebotanics",
                 "Specification-Vendor"    : "LeoBeliik",
                 "Specification-Version"   : project.jar.archiveVersion, // We are version 1 of ourselves
-                "Implementation-Title"    : "Little Botanica",
+                "Implementation-Title"    : "Little botanics",
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "LeoBeliik",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")

@@ -1,29 +1,29 @@
 modLoader="javafml"
 loaderVersion="[43,)"
 license="GNU LESSER GENERAL PUBLIC LICENSE"
-licenseURL= "https://github.com/LeoBeliik/LittleBotanica/blob/master/LICENSE.txt"
-issueTrackerURL="https://github.com/LeoBeliik/LittleBotanica/issues"
+licenseURL= "https://github.com/LeoBeliik/LittleBotanics/blob/master/LICENSE.txt"
+issueTrackerURL="https://github.com/LeoBeliik/LittleBotanics/issues"
 [[mods]]
-modId="littlebotanica"
+modId="littlebotanics"
 version="${file.jarVersion}"
-displayName="Little Botanica"
+displayName="Little Botanics"
 authors="LeoBeliik"
 description='''
 mod do thing
 '''
-[[dependencies.littlebotanica]]
+[[dependencies.littlebotanics]]
     modId="forge"
     mandatory=true
     versionRange="[43,)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.littlebotanica]]
+[[dependencies.littlebotanics]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.littlebotanica]]
+[[dependencies.littlebotanics]]
     modId="botania"
     mandatory=true
     versionRange="[1.19.2,1.20)"
