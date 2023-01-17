@@ -30,14 +30,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Function;
 import static com.leobeliik.littlebotanics.LittleBotanics.MODID;
 
-public class LittleManaCartRenderer<T extends AbstractTrainCarEntity> extends EntityRenderer<T> implements RenderWithAttachmentPoints<T> {
+public class LittleManaCarRenderer<T extends AbstractTrainCarEntity> extends EntityRenderer<T> implements RenderWithAttachmentPoints<T> {
     private final EntityModel entityModel;
     private final ResourceLocation texture;
     private static final ResourceLocation CHAIN_TEXTURE = new ResourceLocation("littlelogistics", "textures/entity/chain.png");
     private final ChainModel chainModel;
     private static final ManaPoolBlockEntity DUMMY = new ManaPoolBlockEntity(ManaBurst.NO_SOURCE, BotaniaBlocks.manaPool.defaultBlockState());
 
-    public LittleManaCartRenderer(EntityRendererProvider.Context context, Function<ModelPart, EntityModel> baseModel, ModelLayerLocation layerLocation, String baseTexture) {
+    public LittleManaCarRenderer(EntityRendererProvider.Context context, Function<ModelPart, EntityModel> baseModel, ModelLayerLocation layerLocation, String baseTexture) {
         super(context);
         this.chainModel = new ChainModel(context.bakeLayer(ChainModel.LAYER_LOCATION));
         this.entityModel = baseModel.apply(context.bakeLayer(layerLocation));
@@ -164,12 +164,12 @@ public class LittleManaCartRenderer<T extends AbstractTrainCarEntity> extends En
         this.entityModel.setupAnim(car, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         VertexConsumer vertexconsumer = buffer.getBuffer(this.entityModel.renderType(this.getTextureLocation(car)));
         this.entityModel.renderToBuffer(pose, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        this.renderAdditional((LittleManaCartEntity) car, yaw, partialTicks, pose, buffer, packedLight);
+        this.renderAdditional((LittleManaCarEntity) car, yaw, partialTicks, pose, buffer, packedLight);
         pose.popPose();
         return attach;
     }
 
-    private void renderAdditional(LittleManaCartEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+    private void renderAdditional(LittleManaCarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         int insideUVStart = 2;
         int insideUVEnd = 14;
         float manaLevel = (float) pEntity.getMana() / (float) pEntity.getMaxMana();

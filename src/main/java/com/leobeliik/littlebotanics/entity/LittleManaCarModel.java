@@ -11,14 +11,14 @@ import net.minecraft.resources.ResourceLocation;
 import javax.annotation.ParametersAreNonnullByDefault;
 import static com.leobeliik.littlebotanics.LittleBotanics.MODID;
 
-public class LittleManaCartModel extends EntityModel<LittleManaCartEntity> {
+public class LittleManaCarModel extends EntityModel<LittleManaCarEntity> {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(MODID, "littlemanacartmodel"), "main");
-    private final ModelPart cart;
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(MODID, "littlemanacarmodel"), "main");
+    private final ModelPart car;
     private final ModelPart pool;
 
-    public LittleManaCartModel(ModelPart root) {
-        this.cart = root.getChild("cart");
+    public LittleManaCarModel(ModelPart root) {
+        this.car = root.getChild("car");
         this.pool = root.getChild("pool");
     }
 
@@ -37,7 +37,7 @@ public class LittleManaCartModel extends EntityModel<LittleManaCartEntity> {
                 PartPose.offset(0.0F, 24.0F, 0.0F));
 
 
-        PartDefinition cart = partdefinition.addOrReplaceChild("cart", CubeListBuilder.create()
+        PartDefinition car = partdefinition.addOrReplaceChild("car", CubeListBuilder.create()
                         //straps
                         //walls
                         .texOffs(0, 0).addBox(-7.0F, -6.0F, -8.0F, 2.0F, 5.0F, 16.0F, new CubeDeformation(0.0F)) //l
@@ -57,12 +57,12 @@ public class LittleManaCartModel extends EntityModel<LittleManaCartEntity> {
     }
 
     @ParametersAreNonnullByDefault
-    public void setupAnim(LittleManaCartEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(LittleManaCarEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     }
 
     @ParametersAreNonnullByDefault
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        this.cart.render(poseStack, buffer, packedLight, packedOverlay);
+        this.car.render(poseStack, buffer, packedLight, packedOverlay);
         this.pool.render(poseStack, buffer, packedLight, packedOverlay);
     }
 }

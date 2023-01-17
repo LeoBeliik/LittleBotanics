@@ -1,9 +1,9 @@
 package com.leobeliik.littlebotanics;
 
-import com.leobeliik.littlebotanics.entity.LittleManaCartEntity;
-import com.leobeliik.littlebotanics.entity.LittleManaCartModel;
-import com.leobeliik.littlebotanics.entity.LittleManaCartRenderer;
-import com.leobeliik.littlebotanics.items.LittleManaCartItem;
+import com.leobeliik.littlebotanics.entity.LittleManaCarEntity;
+import com.leobeliik.littlebotanics.entity.LittleManaCarModel;
+import com.leobeliik.littlebotanics.entity.LittleManaCarRenderer;
+import com.leobeliik.littlebotanics.items.LittleManaCarItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -45,27 +45,27 @@ public class LittleBotanics {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> bus.addListener(this::registerLayers));
     }
 
-    public static final RegistryObject<Item> LITTLEMANACART_ITEM = ITEMS.register("littlemanacart_item", () ->
-            new LittleManaCartItem(LittleManaCartEntity::new, new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION).stacksTo(1)));
+    public static final RegistryObject<Item> LITTLEMANACAR_ITEM = ITEMS.register("littlemanacar_item", () ->
+            new LittleManaCarItem(LittleManaCarEntity::new, new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION).stacksTo(1)));
 
-    public static final RegistryObject<EntityType<LittleManaCartEntity>> LITTLEMANACART_ENTITY =
-            ENTITIES.register("littlemanacart", () ->
-                    EntityType.Builder.<LittleManaCartEntity>of(LittleManaCartEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<LittleManaCarEntity>> LITTLEMANACAR_ENTITY =
+            ENTITIES.register("littlemanacar", () ->
+                    EntityType.Builder.<LittleManaCarEntity>of(LittleManaCarEntity::new, MobCategory.MISC)
                             .sized(0.7f, 0.9f)
                             .clientTrackingRange(8)
                             .setShouldReceiveVelocityUpdates(true)
-                            .build(new ResourceLocation(MODID, "littlemanacart").toString()));
+                            .build(new ResourceLocation(MODID, "littlemanacar").toString()));
 
     @SubscribeEvent
     public void registerRenders(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(LITTLEMANACART_ENTITY.get(), ctx -> new LittleManaCartRenderer<>(ctx,
-                LittleManaCartModel::new,
-                LittleManaCartModel.LAYER_LOCATION,
-                "textures/entity/littlemanacart.png"));
+        event.registerEntityRenderer(LITTLEMANACAR_ENTITY.get(), ctx -> new LittleManaCarRenderer<>(ctx,
+                LittleManaCarModel::new,
+                LittleManaCarModel.LAYER_LOCATION,
+                "textures/entity/littlemanacar.png"));
     }
 
     @SubscribeEvent
     public void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(LittleManaCartModel.LAYER_LOCATION, LittleManaCartModel::createBodyLayer);
+        event.registerLayerDefinition(LittleManaCarModel.LAYER_LOCATION, LittleManaCarModel::createBodyLayer);
     }
 }

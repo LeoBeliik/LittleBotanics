@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class LittleManaCartItem extends Item {
+public class LittleManaCarItem extends Item {
 
     private final Function4<Level, Double, Double, Double, AbstractTrainCarEntity> constructor;
 
@@ -59,12 +59,12 @@ public class LittleManaCartItem extends Item {
                 }
             }
 
-            AbstractMinecart abstractminecart = ((LittleManaCartItem) itemStack.getItem()).constructor.apply(level, d0, d1 + d3, d2);
+            AbstractMinecart abstractminecar = ((LittleManaCarItem) itemStack.getItem()).constructor.apply(level, d0, d1 + d3, d2);
             if (itemStack.hasCustomHoverName()) {
-                abstractminecart.setCustomName(itemStack.getHoverName());
+                abstractminecar.setCustomName(itemStack.getHoverName());
             }
 
-            level.addFreshEntity(abstractminecart);
+            level.addFreshEntity(abstractminecar);
             itemStack.shrink(1);
             return itemStack;
         }
@@ -74,7 +74,7 @@ public class LittleManaCartItem extends Item {
         }
     };
 
-    public LittleManaCartItem(Function4<Level, Double, Double, Double, AbstractTrainCarEntity> constructor, Item.Properties pProperties) {
+    public LittleManaCarItem(Function4<Level, Double, Double, Double, AbstractTrainCarEntity> constructor, Item.Properties pProperties) {
         super(pProperties);
         this.constructor = constructor;
         DispenserBlock.registerBehavior(this, DISPENSE_ITEM_BEHAVIOR);
@@ -95,17 +95,17 @@ public class LittleManaCartItem extends Item {
                     d0 = 0.5;
                 }
 
-                AbstractMinecart abstractminecart = this.constructor.apply(level, (double) blockpos.getX() + 0.5, (double) blockpos.getY() + 0.0625 + d0, (double) blockpos.getZ() + 0.5);
+                AbstractMinecart abstractminecar = this.constructor.apply(level, (double) blockpos.getX() + 0.5, (double) blockpos.getY() + 0.0625 + d0, (double) blockpos.getZ() + 0.5);
                 if (itemstack.hasCustomHoverName()) {
-                    abstractminecart.setCustomName(itemstack.getHoverName());
+                    abstractminecar.setCustomName(itemstack.getHoverName());
                 }
 
-                if (pContext.getPlayer() != null && abstractminecart.getDirection().equals(pContext.getPlayer().getDirection()) && abstractminecart instanceof AbstractLocomotiveEntity) {
-                    AbstractLocomotiveEntity l = (AbstractLocomotiveEntity) abstractminecart;
+                if (pContext.getPlayer() != null && abstractminecar.getDirection().equals(pContext.getPlayer().getDirection()) && abstractminecar instanceof AbstractLocomotiveEntity) {
+                    AbstractLocomotiveEntity l = (AbstractLocomotiveEntity) abstractminecar;
                     l.flip();
                 }
 
-                level.addFreshEntity(abstractminecart);
+                level.addFreshEntity(abstractminecar);
                 level.gameEvent(pContext.getPlayer(), GameEvent.ENTITY_PLACE, blockpos);
             }
 

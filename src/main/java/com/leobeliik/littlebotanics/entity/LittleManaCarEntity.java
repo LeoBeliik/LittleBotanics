@@ -26,23 +26,23 @@ import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 import vazkii.botania.xplat.XplatAbstractions;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-public class LittleManaCartEntity extends AbstractWagonEntity {
+public class LittleManaCarEntity extends AbstractWagonEntity {
 
     private static final int TRANSFER_RATE = 10000;
     private static final int MAX_MANA = 1000000;
     private static final String TAG_MANA = "mana";
-    private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(LittleManaCartEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(LittleManaCarEntity.class, EntityDataSerializers.INT);
 
-    public LittleManaCartEntity(EntityType<LittleManaCartEntity> type, Level level) {
+    public LittleManaCarEntity(EntityType<LittleManaCarEntity> type, Level level) {
         super(type, level);
     }
 
-    public LittleManaCartEntity(Level level, Double aDouble, Double aDouble1, Double aDouble2) {
-        super(LittleBotanics.LITTLEMANACART_ENTITY.get(), level, aDouble, aDouble1, aDouble2);
+    public LittleManaCarEntity(Level level, Double aDouble, Double aDouble1, Double aDouble2) {
+        super(LittleBotanics.LITTLEMANACAR_ENTITY.get(), level, aDouble, aDouble1, aDouble2);
     }
 
     public ItemStack getPickResult() {
-        return new ItemStack(LittleBotanics.LITTLEMANACART_ITEM.get());
+        return new ItemStack(LittleBotanics.LITTLEMANACAR_ITEM.get());
     }
 
     private void clampRotation(Entity entity) {
@@ -136,29 +136,29 @@ public class LittleManaCartEntity extends AbstractWagonEntity {
                     boolean did = false;
                     boolean can = false;
 
-                    if (pumpDir == dir) { // Pool -> Cart
+                    if (pumpDir == dir) { // Pool -> Car
                         can = true;
 
                         if (!pump.hasRedstone) {
-                            int cartMana = getMana();
+                            int carMana = getMana();
                             int poolMana = pool.getCurrentMana();
                             int transfer = Math.min(TRANSFER_RATE, poolMana);
-                            int actualTransfer = Math.min(ManaPoolBlockEntity.MAX_MANA - cartMana, transfer);
+                            int actualTransfer = Math.min(ManaPoolBlockEntity.MAX_MANA - carMana, transfer);
                             if (actualTransfer > 0) {
                                 pool.receiveMana(-transfer);
-                                setMana(cartMana + actualTransfer);
+                                setMana(carMana + actualTransfer);
                                 did = true;
                             }
                         }
-                    } else if (pumpDir == dir.getOpposite()) { // Cart -> Pool
+                    } else if (pumpDir == dir.getOpposite()) { // Car -> Pool
                         can = true;
 
                         if (!pump.hasRedstone && !pool.isFull()) {
-                            int cartMana = getMana();
-                            int transfer = Math.min(TRANSFER_RATE, cartMana);
+                            int carMana = getMana();
+                            int transfer = Math.min(TRANSFER_RATE, carMana);
                             if (transfer > 0) {
                                 pool.receiveMana(transfer);
-                                setMana(cartMana - transfer);
+                                setMana(carMana - transfer);
                                 did = true;
                             }
                         }
