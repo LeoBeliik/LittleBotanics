@@ -1,4 +1,4 @@
-package com.leobeliik.littlebotanics.entity;
+package com.leobeliik.littlebotanics.entity.cars;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -27,13 +27,11 @@ public class LittleManaCarModel extends EntityModel<LittleManaCarEntity> {
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         partdefinition.addOrReplaceChild("pool", CubeListBuilder.create()
-                        //.texOffs(26, 18).addBox(-5.0F, -16.0F, -5.0F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F, 0.0F, 1.0F))
-                        //pool
                         .texOffs(32, 12).addBox(-8.0F, -14.0F, -8.0F, 2.0F, 8.0F, 16.0F, new CubeDeformation(0.0F)) //l
                         .texOffs(32, 12).addBox(6.0F, -14.0F, -8.0F, 2.0F, 8.0F, 16.0F, new CubeDeformation(0.0F)) //l
                         .texOffs(34, 26).addBox(-5.0F, -14.0F, -8.0F, 10.0F, 8.0F, 2.0F, new CubeDeformation(1F, 0F, 0F)) //s
                         .texOffs(34, 26).addBox(-5.0F, -14.0F, 6.0F, 10.0F, 8.0F, 2.0F, new CubeDeformation(1F, 0F, 0F)) //s
-                        .texOffs(24, 16).addBox(-6.0F, -8.0F, -6.0F, 12.0F, 7.0F, 12.0F, new CubeDeformation(0.0F)), //b
+                        .texOffs(24, 16).addBox(-6.0F, -8.0F, -6.0F, 12.0F, 1.0F, 12.0F, new CubeDeformation(0.0F)), //b
                 PartPose.offset(0.0F, 24.0F, 0.0F));
 
 

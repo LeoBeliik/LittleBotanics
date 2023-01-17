@@ -1,4 +1,4 @@
-package com.leobeliik.littlebotanics.entity;
+package com.leobeliik.littlebotanics.entity.cars;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -186,7 +186,6 @@ public class LittleManaCarRenderer<T extends AbstractTrainCarEntity> extends Ent
 
             pMatrixStack.popPose();
         }
-
     }
 
     protected Model getModel(T entity) {

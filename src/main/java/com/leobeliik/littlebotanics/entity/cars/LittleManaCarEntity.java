@@ -1,4 +1,4 @@
-package com.leobeliik.littlebotanics.entity;
+package com.leobeliik.littlebotanics.entity.cars;
 
 import com.leobeliik.littlebotanics.LittleBotanics;
 import dev.murad.shipping.entity.custom.train.wagon.AbstractWagonEntity;
@@ -106,7 +106,7 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
         }
     }
 
-    int getMana() {
+    public int getMana() {
         return entityData.get(MANA);
     }
 
@@ -114,7 +114,7 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
         entityData.set(MANA, mana);
     }
 
-    int getMaxMana() {
+    public int getMaxMana() {
         return MAX_MANA;
     }
 
@@ -178,6 +178,7 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
             }
         }
     }
+
 
     @Override
     protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
