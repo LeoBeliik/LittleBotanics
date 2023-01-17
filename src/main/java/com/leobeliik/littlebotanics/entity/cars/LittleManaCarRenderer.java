@@ -164,12 +164,12 @@ public class LittleManaCarRenderer<T extends AbstractTrainCarEntity> extends Ent
         this.entityModel.setupAnim(car, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         VertexConsumer vertexconsumer = buffer.getBuffer(this.entityModel.renderType(this.getTextureLocation(car)));
         this.entityModel.renderToBuffer(pose, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        this.renderAdditional((LittleManaCarEntity) car, yaw, partialTicks, pose, buffer, packedLight);
+        this.renderMana((LittleManaCarEntity) car, yaw, partialTicks, pose, buffer, packedLight);
         pose.popPose();
         return attach;
     }
 
-    private void renderAdditional(LittleManaCarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+    private void renderMana(LittleManaCarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         int insideUVStart = 2;
         int insideUVEnd = 14;
         float manaLevel = (float) pEntity.getMana() / (float) pEntity.getMaxMana();
