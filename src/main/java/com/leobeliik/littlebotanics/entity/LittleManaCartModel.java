@@ -8,7 +8,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
-
+import javax.annotation.ParametersAreNonnullByDefault;
 import static com.leobeliik.littlebotanics.LittleBotanics.MODID;
 
 public class LittleManaCartModel extends EntityModel<LittleManaCartEntity> {
@@ -56,9 +56,11 @@ public class LittleManaCartModel extends EntityModel<LittleManaCartEntity> {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
+    @ParametersAreNonnullByDefault
     public void setupAnim(LittleManaCartEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     }
 
+    @ParametersAreNonnullByDefault
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         this.cart.render(poseStack, buffer, packedLight, packedOverlay);
         this.pool.render(poseStack, buffer, packedLight, packedOverlay);

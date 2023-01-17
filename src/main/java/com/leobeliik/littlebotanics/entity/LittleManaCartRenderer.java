@@ -5,10 +5,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Vector3f;
 import dev.murad.shipping.entity.custom.train.AbstractTrainCarEntity;
-import dev.murad.shipping.entity.custom.vessel.barge.FluidTankBargeEntity;
 import dev.murad.shipping.entity.models.ChainModel;
 import dev.murad.shipping.entity.render.RenderWithAttachmentPoints;
-import dev.murad.shipping.util.FluidRenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.Model;
@@ -21,18 +19,15 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fluids.FluidStack;
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Function;
-
 import static com.leobeliik.littlebotanics.LittleBotanics.MODID;
 
 public class LittleManaCartRenderer<T extends AbstractTrainCarEntity> extends EntityRenderer<T> implements RenderWithAttachmentPoints<T> {
@@ -169,19 +164,28 @@ public class LittleManaCartRenderer<T extends AbstractTrainCarEntity> extends En
         this.entityModel.setupAnim(car, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         VertexConsumer vertexconsumer = buffer.getBuffer(this.entityModel.renderType(this.getTextureLocation(car)));
         this.entityModel.renderToBuffer(pose, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        this.renderAdditional(car, yaw, partialTicks, pose, buffer, packedLight);
+        this.renderAdditional((LittleManaCartEntity) car, yaw, partialTicks, pose, buffer, packedLight);
         pose.popPose();
         return attach;
     }
 
-    private void renderAdditional(T pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-        //render mana here
-        /*pMatrixStack.pushPose();
-        pMatrixStack.mulPose(Vector3f.ZN.rotationDegrees(180.0F));
-        pMatrixStack.translate(0, -1.05, 0);
-        pMatrixStack.scale(1F, 1F, 1F);
-        FluidRenderUtil.renderCubeUsingQuads(1000, new FluidStack(Fluids.WATER, 500), pPartialTicks, pMatrixStack, pBuffer, pPackedLight, pPackedLight);
-        pMatrixStack.popPose();*/
+    private void renderAdditional(LittleManaCartEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+        int insideUVStart = 2;
+        int insideUVEnd = 14;
+        float manaLevel = (float) pEntity.getMana() / (float) pEntity.getMaxMana();
+
+        if (manaLevel > 0) {
+            pMatrixStack.pushPose();
+            pMatrixStack.translate(-0.5F, Mth.clampedMap(manaLevel, 0, 1, 1F, 0.6875F), 0.5F);
+            pMatrixStack.scale(1F, 1F, 1F);
+            pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(270F));
+
+            VertexConsumer buffer = pBuffer.getBuffer(RenderHelper.MANA_POOL_WATER);
+            RenderHelper.renderIconCropped(pMatrixStack, buffer, insideUVStart, insideUVStart, insideUVEnd, insideUVEnd,
+                    MiscellaneousModels.INSTANCE.manaWater.sprite(), 0xFFFFFF, 1, pPackedLight);
+
+            pMatrixStack.popPose();
+        }
 
     }
 
@@ -194,4 +198,5 @@ public class LittleManaCartRenderer<T extends AbstractTrainCarEntity> extends En
     public ResourceLocation getTextureLocation(T entity) {
         return this.texture;
     }
+
 }
