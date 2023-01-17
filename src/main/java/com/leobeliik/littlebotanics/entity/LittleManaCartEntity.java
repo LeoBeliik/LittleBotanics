@@ -24,7 +24,6 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 import vazkii.botania.xplat.XplatAbstractions;
-
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class LittleManaCartEntity extends AbstractWagonEntity {

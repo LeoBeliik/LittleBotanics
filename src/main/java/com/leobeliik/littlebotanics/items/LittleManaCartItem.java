@@ -29,13 +29,13 @@ public class LittleManaCartItem extends Item {
     private static final DispenseItemBehavior DISPENSE_ITEM_BEHAVIOR = new DefaultDispenseItemBehavior() {
         private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
 
-        public @NotNull ItemStack execute(BlockSource p_42949_, @NotNull ItemStack p_42950_) {
-            Direction direction = p_42949_.getBlockState().getValue(DispenserBlock.FACING);
-            Level level = p_42949_.getLevel();
-            double d0 = p_42949_.x() + (double) direction.getStepX() * 1.125;
-            double d1 = Math.floor(p_42949_.y()) + (double) direction.getStepY();
-            double d2 = p_42949_.z() + (double) direction.getStepZ() * 1.125;
-            BlockPos blockpos = p_42949_.getPos().relative(direction);
+        public @NotNull ItemStack execute(BlockSource source, @NotNull ItemStack itemStack) {
+            Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+            Level level = source.getLevel();
+            double d0 = source.x() + (double) direction.getStepX() * 1.125;
+            double d1 = Math.floor(source.y()) + (double) direction.getStepY();
+            double d2 = source.z() + (double) direction.getStepZ() * 1.125;
+            BlockPos blockpos = source.getPos().relative(direction);
             BlockState blockstate = level.getBlockState(blockpos);
             RailShape railshape = blockstate.getBlock() instanceof BaseRailBlock ? ((BaseRailBlock) blockstate.getBlock()).getRailDirection(blockstate, level, blockpos, null) : RailShape.NORTH_SOUTH;
             double d3;
@@ -47,7 +47,7 @@ public class LittleManaCartItem extends Item {
                 }
             } else {
                 if (!blockstate.isAir() || !level.getBlockState(blockpos.below()).is(BlockTags.RAILS)) {
-                    return this.defaultDispenseItemBehavior.dispense(p_42949_, p_42950_);
+                    return this.defaultDispenseItemBehavior.dispense(source, itemStack);
                 }
 
                 BlockState blockstate1 = level.getBlockState(blockpos.below());
@@ -59,14 +59,14 @@ public class LittleManaCartItem extends Item {
                 }
             }
 
-            AbstractMinecart abstractminecart = ((LittleManaCartItem) p_42950_.getItem()).constructor.apply(level, d0, d1 + d3, d2);
-            if (p_42950_.hasCustomHoverName()) {
-                abstractminecart.setCustomName(p_42950_.getHoverName());
+            AbstractMinecart abstractminecart = ((LittleManaCartItem) itemStack.getItem()).constructor.apply(level, d0, d1 + d3, d2);
+            if (itemStack.hasCustomHoverName()) {
+                abstractminecart.setCustomName(itemStack.getHoverName());
             }
 
             level.addFreshEntity(abstractminecart);
-            p_42950_.shrink(1);
-            return p_42950_;
+            itemStack.shrink(1);
+            return itemStack;
         }
 
         protected void playSound(BlockSource p_42947_) {
@@ -77,6 +77,7 @@ public class LittleManaCartItem extends Item {
     public LittleManaCartItem(Function4<Level, Double, Double, Double, AbstractTrainCarEntity> constructor, Item.Properties pProperties) {
         super(pProperties);
         this.constructor = constructor;
+        DispenserBlock.registerBehavior(this, DISPENSE_ITEM_BEHAVIOR);
     }
 
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
