@@ -17,7 +17,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,7 +37,6 @@ public class LittleBotanics {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::addEntityAttributes);
-        bus.addListener(this::regCaps);
         Registry(bus);
         clientRegistry(bus);
     }
@@ -53,12 +51,14 @@ public class LittleBotanics {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> bus.addListener(this::registerLayers));
     }
 
+    //ITEMS regs
     public static final RegistryObject<Item> LITTLEMANACAR_ITEM = ITEMS.register("littlemanacar_item", () ->
-            new LittleManaCarItem(LittleManaCarEntity::new, new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION).stacksTo(1)));
+            new LittleManaCarItem(LittleManaCarEntity::new, new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
     public static final RegistryObject<Item> LITTLEMANABARGE_ITEM = ITEMS.register("littlemanabarge_item", () ->
-            new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION).stacksTo(1), LittleManaBargeEntity::new));
+            new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), LittleManaBargeEntity::new));
 
+    //ENTITIES regs
     public static final RegistryObject<EntityType<LittleManaCarEntity>> LITTLEMANACAR_ENTITY = ENTITIES.register("littlemanacar", () ->
             EntityType.Builder.<LittleManaCarEntity>of(LittleManaCarEntity::new, MobCategory.MISC)
                     .sized(0.7f, 0.9f)
@@ -66,11 +66,13 @@ public class LittleBotanics {
                     .setShouldReceiveVelocityUpdates(true)
                     .build(new ResourceLocation(MODID, "littlemanacar").toString()));
 
-    public static final RegistryObject<EntityType<LittleManaBargeEntity>> LITTLEMANABARGE_ENTITY = ENTITIES.register("littlemanabarge", () -> EntityType.Builder.<LittleManaBargeEntity>of(LittleManaBargeEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<LittleManaBargeEntity>> LITTLEMANABARGE_ENTITY = ENTITIES.register("littlemanabarge", () ->
+            EntityType.Builder.<LittleManaBargeEntity>of(LittleManaBargeEntity::new, MobCategory.MISC)
             .sized(0.6f, 0.9f)
             .clientTrackingRange(8)
             .build(new ResourceLocation(MODID, "littlemanabarge").toString()));
 
+    //OTHER
     @SubscribeEvent
     public void addEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(LITTLEMANABARGE_ENTITY.get(), LittleManaBargeEntity.setCustomAttributes().build());
@@ -95,10 +97,5 @@ public class LittleBotanics {
     public void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(LittleManaCarModel.LAYER_LOCATION, LittleManaCarModel::createBodyLayer);
         event.registerLayerDefinition(LittleManaBargeModel.LAYER_LOCATION, LittleManaBargeModel::createBodyLayer);
-    }
-
-    @SubscribeEvent
-    public void regCaps(RegisterCapabilitiesEvent event) {
-        event.register(Tete.class);
     }
 }

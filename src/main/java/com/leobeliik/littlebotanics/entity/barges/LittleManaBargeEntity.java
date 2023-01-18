@@ -113,8 +113,6 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
                     boolean can = false;
                     boolean shoulDock = level.getBlockEntity(pumpPos.below()) instanceof BargeDockTileEntity;
 
-                    System.out.println();
-
                     if (pumpDir == dir) { // Pool -> Car
                         can = true;
 
