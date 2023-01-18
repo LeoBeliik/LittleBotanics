@@ -1,6 +1,7 @@
 package com.leobeliik.littlebotanics.entity.barges;
 
 import com.leobeliik.littlebotanics.LittleBotanics;
+import dev.murad.shipping.block.dock.BargeDockTileEntity;
 import dev.murad.shipping.entity.custom.vessel.barge.AbstractBargeEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.fx.WispParticleData;
@@ -44,8 +46,7 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
 
     @Override
     public Item getDropItem() {
-        return ItemStack.EMPTY.getItem();
-        //return new ItemStack(LittleBotanics.LITTLEMANABARGE_ITEM.get()).getItem();
+        return new ItemStack(LittleBotanics.LITTLEMANABARGE_ITEM.get()).getItem();
     }
 
     @Override
@@ -110,6 +111,9 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
                     Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
                     boolean did = false;
                     boolean can = false;
+                    boolean shoulDock = level.getBlockEntity(pumpPos.below()) instanceof BargeDockTileEntity;
+
+                    System.out.println();
 
                     if (pumpDir == dir) { // Pool -> Car
                         can = true;
@@ -120,6 +124,9 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
                             int transfer = Math.min(TRANSFER_RATE, poolMana);
                             int actualTransfer = Math.min(ManaPoolBlockEntity.MAX_MANA - carMana, transfer);
                             if (actualTransfer > 0) {
+                                if (shoulDock) {
+                                    dock();
+                                }
                                 pool.receiveMana(-transfer);
                                 setMana(carMana + actualTransfer);
                                 did = true;
@@ -132,6 +139,9 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
                             int carMana = getMana();
                             int transfer = Math.min(TRANSFER_RATE, carMana);
                             if (transfer > 0) {
+                                if (shoulDock) {
+                                    dock();
+                                }
                                 pool.receiveMana(transfer);
                                 setMana(carMana - transfer);
                                 did = true;
@@ -154,6 +164,14 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
         }
     }
 
+    private void dock() {
+        //TODO add sound
+        this.getTrain().asList().forEach(tug -> {
+            tug.setDeltaMovement(Vec3.ZERO);
+            tug.moveTo((int) Math.floor(tug.getX()) + 0.5, tug.getY(), (int) Math.floor(tug.getZ()) + 0.5);
+            this.moveTo((int) Math.floor(this.getX()) + 0.5, this.getY(), (int) Math.floor(this.getZ()) + 0.5);
+        });
+    }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag cmp) {

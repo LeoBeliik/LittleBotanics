@@ -7,7 +7,6 @@ import com.leobeliik.littlebotanics.entity.cars.LittleManaCarEntity;
 import com.leobeliik.littlebotanics.entity.cars.LittleManaCarModel;
 import com.leobeliik.littlebotanics.entity.cars.LittleManaCarRenderer;
 import com.leobeliik.littlebotanics.items.LittleManaCarItem;
-import dev.murad.shipping.entity.render.barge.StaticVesselRenderer;
 import dev.murad.shipping.item.VesselItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -18,6 +17,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,12 +38,12 @@ public class LittleBotanics {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::addEntityAttributes);
+        bus.addListener(this::regCaps);
         Registry(bus);
         clientRegistry(bus);
     }
 
     private void Registry(IEventBus bus) {
-        //Network.registerMessages();
         ITEMS.register(bus);
         ENTITIES.register(bus);
     }
@@ -95,5 +95,10 @@ public class LittleBotanics {
     public void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(LittleManaCarModel.LAYER_LOCATION, LittleManaCarModel::createBodyLayer);
         event.registerLayerDefinition(LittleManaBargeModel.LAYER_LOCATION, LittleManaBargeModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public void regCaps(RegisterCapabilitiesEvent event) {
+        event.register(Tete.class);
     }
 }

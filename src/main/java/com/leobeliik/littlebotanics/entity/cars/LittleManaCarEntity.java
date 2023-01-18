@@ -1,6 +1,7 @@
 package com.leobeliik.littlebotanics.entity.cars;
 
 import com.leobeliik.littlebotanics.LittleBotanics;
+import dev.murad.shipping.block.rail.blockentity.TrainCarDockTileEntity;
 import dev.murad.shipping.entity.custom.train.wagon.AbstractWagonEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.fx.WispParticleData;
@@ -24,6 +26,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 import vazkii.botania.xplat.XplatAbstractions;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class LittleManaCarEntity extends AbstractWagonEntity {
@@ -77,12 +80,6 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
     }
 
     @Override
-    protected void applyNaturalSlowdown() {
-        float f = 0.98F;
-        this.setDeltaMovement(getDeltaMovement().multiply(f, 0, f));
-    }
-
-    @Override
     public int getDefaultDisplayOffset() {
         return 8;
     }
@@ -106,7 +103,7 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
         }
     }
 
-    public int getMana() {
+    int getMana() {
         return entityData.get(MANA);
     }
 
@@ -114,7 +111,7 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
         entityData.set(MANA, mana);
     }
 
-    public int getMaxMana() {
+    int getMaxMana() {
         return MAX_MANA;
     }
 
@@ -135,6 +132,7 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
                     Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
                     boolean did = false;
                     boolean can = false;
+                    boolean shoulDock = level.getBlockEntity(pos) instanceof TrainCarDockTileEntity;
 
                     if (pumpDir == dir) { // Pool -> Car
                         can = true;
@@ -145,6 +143,10 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
                             int transfer = Math.min(TRANSFER_RATE, poolMana);
                             int actualTransfer = Math.min(ManaPoolBlockEntity.MAX_MANA - carMana, transfer);
                             if (actualTransfer > 0) {
+                                if (shoulDock) {
+                                    dock();
+                                }
+                                if (this.getDeltaMovement().horizontalDistance() != 0) return;
                                 pool.receiveMana(-transfer);
                                 setMana(carMana + actualTransfer);
                                 did = true;
@@ -157,6 +159,10 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
                             int carMana = getMana();
                             int transfer = Math.min(TRANSFER_RATE, carMana);
                             if (transfer > 0) {
+                                if (shoulDock) {
+                                    dock();
+                                }
+                                if (this.getDeltaMovement().horizontalDistance() != 0) return;
                                 pool.receiveMana(transfer);
                                 setMana(carMana - transfer);
                                 did = true;
@@ -173,12 +179,18 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
                         pump.hasCartOnTop = true;
                         pump.comparator = (int) ((double) getMana() / (double) ManaPoolBlockEntity.MAX_MANA * 15); // different from ManaPoolBlockEntity.calculateComparatorLevel, kept for compatibility
                     }
-
                 }
             }
         }
     }
 
+    private void dock() {
+        //TODO add sound
+        this.getTrain().asList().forEach(tug -> {
+            tug.setDeltaMovement(Vec3.ZERO);
+            this.moveTo((int) Math.floor(this.getX()) + 0.5, this.getY(), (int) Math.floor(this.getZ()) + 0.5);
+        });
+    }
 
     @Override
     protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
@@ -197,4 +209,6 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
     public int getComparatorLevel() {
         return ManaPoolBlockEntity.calculateComparatorLevel(getMana(), MAX_MANA);
     }
+
+
 }
