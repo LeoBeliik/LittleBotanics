@@ -105,15 +105,24 @@ mixin {
     add sourceSets.main, "littlebotanics.refmap.json"
 }
 
+tasks.register("version_up") {
+    doFirst {
+        def gp = file("gradle.properties")
+        def mv = "${modversion}".toInteger() + 1
+
+        gp.setText(gp.getText().replace("modversion = " + "${modversion}", "modversion = " + mv.toString()))
+    }
+}
+
 // Example for how to get properties into the manifest for reading at runtime.
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "littlebotanics",
+                "Specification-Title"     : "LittleBotanics",
                 "Specification-Vendor"    : "LeoBeliik",
-                "Specification-Version"   : project.jar.archiveVersion, // We are version 1 of ourselves
+                "Specification-Version"   : "${mod_version}_forge-${mc_version}",
                 "Implementation-Title"    : "Little botanics",
-                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Version"  : "${mod_version}_forge-${mc_version}",
                 "Implementation-Vendor"   : "LeoBeliik",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 "MixinConnector"          : "com.leobeliik.littlebotanics.MixinConnector"
