@@ -1,5 +1,5 @@
 <p align="center">
-<img width="200" height="200" src="E:\Projects\LittleBotanics\src\main\resources\littlebotanics_logo.png">
+<img width="200" height="200" src="src\main\resources\littlebotanics_logo.png">
 </p>
 <h1 align="center">Little Botanics Addon</h1>
 <br/>
