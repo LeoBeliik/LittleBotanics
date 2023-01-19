@@ -1,15 +1,16 @@
 modLoader="javafml"
 loaderVersion="[43,)"
-license="GNU LESSER GENERAL PUBLIC LICENSE"
-licenseURL= "https://github.com/LeoBeliik/LittleBotanics/blob/master/LICENSE.txt"
+license="GNU General Public License v3.0"
+licenseURL= "https://github.com/LeoBeliik/LittleBotanics/blob/aac83dd1277d890842db790f183f385297757d7f/LICENSE.md"
 issueTrackerURL="https://github.com/LeoBeliik/LittleBotanics/issues"
 [[mods]]
 modId="littlebotanics"
 version="${file.jarVersion}"
 displayName="Little Botanics"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/little-botanics"
 authors="LeoBeliik"
 description='''
-mod do thing
+Addon mod for Little Logistics and Botania that adds a car mana pool and barge mana pool
 '''
 [[dependencies.littlebotanics]]
     modId="forge"
@@ -30,7 +31,7 @@ mod do thing
     ordering="NONE"
     side="BOTH"
 [[dependencies.littlelogistics]]
-    modId="minecraft"
+    modId="littlelogistics"
     mandatory=true
     versionRange="[1.19.2,1.20)"
     ordering="NONE"
