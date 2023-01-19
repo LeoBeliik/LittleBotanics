@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.leobeliik.littlebotanics.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "AbstractTailDockTileEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "littlebotanics.refmap.json"
+}
