@@ -32,7 +32,7 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
     private static final int MAX_MANA = 1000000;
     private static final String TAG_MANA = "mana";
     private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(LittleManaCarEntity.class, EntityDataSerializers.INT);
-    private static boolean shouldDock;
+    private boolean shouldDock;
 
 
     public LittleManaCarEntity(EntityType<LittleManaCarEntity> type, Level level) {
@@ -190,7 +190,7 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
         setMana(cmp.getInt(TAG_MANA));
     }
 
-    public static boolean shouldDock() {
+    public  boolean shouldDock() {
         return shouldDock;
     }
 

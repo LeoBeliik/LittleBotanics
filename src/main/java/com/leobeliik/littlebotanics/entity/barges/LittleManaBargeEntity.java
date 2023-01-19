@@ -34,7 +34,7 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
     private static final String TAG_MANA = "mana";
     private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(LittleManaBargeEntity.class, EntityDataSerializers.INT);
 
-    private static boolean shouldDock = true;
+    private boolean shouldDock = true;
 
     public LittleManaBargeEntity(EntityType<? extends LittleManaBargeEntity> type, Level level) {
         super(type, level);
@@ -168,7 +168,7 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
         setMana(cmp.getInt(TAG_MANA));
     }
 
-    public static boolean shouldDock() {
+    public boolean shouldDock() {
         return shouldDock;
     }
 

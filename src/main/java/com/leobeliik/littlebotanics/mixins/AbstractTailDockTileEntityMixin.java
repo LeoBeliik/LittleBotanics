@@ -32,16 +32,16 @@ public abstract class AbstractTailDockTileEntityMixin<T extends Entity & Linkabl
     private Boolean checkDirections(T vessel, BlockPos p) {
         for (Direction dir : Direction.Plane.HORIZONTAL) {
             //if in insert mode, default check is in front and below the dock, this puts it on top of the dock
-            if (vessel instanceof LittleManaBargeEntity && LittleManaBargeEntity.shouldDock()) {
+            if (vessel instanceof LittleManaBargeEntity barge && barge.shouldDock()) {
                 //also check if pump is on top of the dock
-                if (vessel.level.getBlockEntity(p.above().relative(dir)) instanceof ManaPumpBlockEntity
-                        && vessel.level.getBlockEntity(p.relative(dir)) instanceof AbstractTailDockTileEntity) {
+                if (barge.level.getBlockEntity(p.above().relative(dir)) instanceof ManaPumpBlockEntity
+                        && barge.level.getBlockEntity(p.relative(dir)) instanceof AbstractTailDockTileEntity) {
                     return true;
                 }
             }
             // if in insert mode, default check is below the rail, this puts it on the side of the dock
-            if (vessel instanceof LittleManaCarEntity && LittleManaCarEntity.shouldDock()
-                    && vessel.level.getBlockEntity(p.relative(dir)) instanceof ManaPumpBlockEntity) {
+            if (vessel instanceof LittleManaCarEntity car && car.shouldDock()
+                    && car.level.getBlockEntity(p.relative(dir)) instanceof ManaPumpBlockEntity) {
                 return true;
             }
         }
