@@ -13,7 +13,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
-
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class LittleManaBargeRenderer<T extends VesselEntity> extends StaticVesselRenderer {

@@ -8,6 +8,8 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import static com.leobeliik.littlebotanics.LittleBotanics.MODID;
 
 public class LittleManaBargeModel extends EntityModel<LittleManaBargeEntity> {
@@ -41,9 +43,9 @@ public class LittleManaBargeModel extends EntityModel<LittleManaBargeEntity> {
     }
 
     @Override
-    public void setupAnim(LittleManaBargeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-    }
+    public void setupAnim(@NotNull LittleManaBargeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {}
 
+    @ParametersAreNonnullByDefault
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         barge.render(poseStack, buffer, packedLight, packedOverlay);
