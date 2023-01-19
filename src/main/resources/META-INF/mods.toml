@@ -9,6 +9,7 @@ version="${file.jarVersion}"
 displayName="Little Botanics"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/little-botanics"
 authors="LeoBeliik"
+logoFile= "littlebotanics_logo.png"
 description='''
 Addon mod for Little Logistics and Botania that adds a car mana pool and barge mana pool
 '''
