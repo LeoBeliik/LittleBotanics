@@ -1,0 +1,19 @@
+{
+  "name": "Mana Pool Car",
+  "icon": "littlebotanics:littlemanacar_item",
+  "category": "littlelogistics:vessels",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "littlebotanics:littlemanacar",
+      "scale": 0.6,
+      "offset": 0.5,
+      "text": "hmmmmmmmmm"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "littlebotanics:littlemanacar",
+      "text": ""
+    }
+  ]
+}

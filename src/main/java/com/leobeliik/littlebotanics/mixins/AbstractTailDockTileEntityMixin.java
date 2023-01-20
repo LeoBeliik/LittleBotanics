@@ -8,6 +8,7 @@ import dev.murad.shipping.util.LinkableEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +23,7 @@ public abstract class AbstractTailDockTileEntityMixin<T extends Entity & Linkabl
             at = @At("RETURN"), remap = false)
     private Boolean littleBotanics_checkPumpOnDock(T vessel, BlockPos p, CallbackInfoReturnable<Boolean> cir) {
         //gotta ignore rail mode, sorry
-        if (this.isInsert() ? checkDirections(vessel, p.above()) : vessel.level.getBlockEntity(p) instanceof ManaPumpBlockEntity) {
+        if (this.isInsert() ? checkDirections(vessel, p.above()) : shouldStop(vessel, p)) {
             return true;
         }
         return cir.getReturnValue();
@@ -44,6 +45,20 @@ public abstract class AbstractTailDockTileEntityMixin<T extends Entity & Linkabl
                     && car.level.getBlockEntity(p.relative(dir)) instanceof ManaPumpBlockEntity) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    @Unique
+    private Boolean shouldStop(T vessel, BlockPos p) {
+        Level level = vessel.level;
+        if (!(level.getBlockEntity(p) instanceof ManaPumpBlockEntity pump) || pump.hasRedstone) return false;
+
+        if (vessel instanceof LittleManaBargeEntity barge && level.getBlockEntity(p.below()) instanceof AbstractTailDockTileEntity) {
+            return barge.shouldDock();
+        }
+        if (vessel instanceof LittleManaCarEntity car) {
+            return car.shouldDock();
         }
         return false;
     }

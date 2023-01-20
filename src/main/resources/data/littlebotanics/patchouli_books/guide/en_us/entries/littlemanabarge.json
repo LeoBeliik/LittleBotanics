@@ -1,0 +1,19 @@
+{
+  "name": "Mana Pool Barge",
+  "icon": "littlebotanics:littlemanabarge_item",
+  "category": "littlelogistics:vessels",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "littlebotanics:littlemanabarge",
+      "scale": 0.6,
+      "offset": 0.5,
+      "text": "A barge that holds a Mana pool for mana transport."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "littlebotanics:littlemanabarge",
+      "text": "The barge must be docked and part of a tug-train to interface with mana pumps."
+    }
+  ]
+}
