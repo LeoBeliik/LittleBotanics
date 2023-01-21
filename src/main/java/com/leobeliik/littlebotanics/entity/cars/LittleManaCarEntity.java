@@ -123,12 +123,13 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
         for (Direction dir : Direction.Plane.HORIZONTAL) {
             BlockPos pumpPos = pos.relative(dir);
             BlockState pumpState = level.getBlockState(pumpPos);
+
             if (pumpState.is(BotaniaBlocks.pump)) {
                 ManaPumpBlockEntity pump = (ManaPumpBlockEntity) level.getBlockEntity(pumpPos);
                 BlockPos poolPos = pumpPos.relative(dir);
                 var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());
 
-                shouldDock = receiver instanceof ManaPool;
+                shouldDock = receiver instanceof ManaPool && this.allowDockInterface();
 
                 if (receiver instanceof ManaPool pool && pump != null && this.allowDockInterface()) {
                     Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
@@ -156,7 +157,6 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
                             int carMana = getMana();
                             int transfer = Math.min(TRANSFER_RATE, carMana);
                             if (transfer > 0) {
-                                if (this.getDeltaMovement().horizontalDistance() != 0) return;
                                 pool.receiveMana(transfer);
                                 setMana(carMana - transfer);
                                 did = true;
@@ -187,7 +187,9 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
                 }
             }
         } else {
-            return level.getBlockEntity(p) instanceof ManaPumpBlockEntity && shouldDock;
+            if (level.getBlockEntity(p) instanceof ManaPumpBlockEntity) {
+                return shouldDock;
+            }
         }
         return false;
     }
