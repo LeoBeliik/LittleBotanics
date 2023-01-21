@@ -49,7 +49,7 @@ jobs:
           curseforge-id: 813493
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          name: Convenient Curios Container ${{env.MOD_VERSION}} - Forge ${{github.ref_name}}
+          name: Little Botanics ${{env.MOD_VERSION}} - Forge ${{github.ref_name}}
           loaders: forge
           version: ${{env.MOD_VERSION}}-${{github.ref_name}}
           java: Java 17
