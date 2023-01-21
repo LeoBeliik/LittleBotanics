@@ -36,7 +36,6 @@ public class LittleManaCarModel extends EntityModel<LittleManaCarEntity> {
 
 
         PartDefinition car = partdefinition.addOrReplaceChild("car", CubeListBuilder.create()
-                        //straps
                         //walls
                         .texOffs(0, 0).addBox(-7.0F, -6.0F, -8.0F, 2.0F, 5.0F, 16.0F, new CubeDeformation(0.0F)) //l
                         .texOffs(0, 0).addBox(5.0F, -6.0F, -8.0F, 2.0F, 5.0F, 16.0F, new CubeDeformation(0.0F)) //l
@@ -55,8 +54,7 @@ public class LittleManaCarModel extends EntityModel<LittleManaCarEntity> {
     }
 
     @ParametersAreNonnullByDefault
-    public void setupAnim(LittleManaCarEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-    }
+    public void setupAnim(LittleManaCarEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {}
 
     @ParametersAreNonnullByDefault
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {

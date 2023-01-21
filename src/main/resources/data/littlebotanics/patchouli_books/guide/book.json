@@ -1,6 +1,6 @@
 {
-  "name": "test??",
-  "landing_text": "ahoi",
+  "name": "Little Logistics Guide",
+  "landing_text": "",
   "version": 2,
   "extend": "littlelogistics:guide"
 }

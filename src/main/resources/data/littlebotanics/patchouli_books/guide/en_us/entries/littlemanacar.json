@@ -1,19 +1,19 @@
 {
   "name": "Mana Pool Car",
   "icon": "littlebotanics:littlemanacar_item",
-  "category": "littlelogistics:vessels",
+  "category": "littlelogistics:trains",
   "pages": [
     {
       "type": "patchouli:entity",
       "entity": "littlebotanics:littlemanacar",
       "scale": 0.6,
       "offset": 0.5,
-      "text": "hmmmmmmmmm"
+      "text": "A simple train car that carries a Mana Pool, similar to mana pool minecart."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "littlebotanics:littlemanacar",
-      "text": ""
+      "text": "It works like a mana pool minecart, Mana Pumps will I/O independently of the docker mode if the car is on top of a $(l:docking_rails)$(item)Docker rail$(0)$(/l). Trains $(l:spring)$(item)linked$(0)$(/l) to the car will auto dock if the conditions apply."
     }
   ]
 }

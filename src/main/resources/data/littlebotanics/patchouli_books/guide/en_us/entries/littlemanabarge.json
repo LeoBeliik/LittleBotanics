@@ -8,12 +8,12 @@
       "entity": "littlebotanics:littlemanabarge",
       "scale": 0.6,
       "offset": 0.5,
-      "text": "A barge that holds a Mana pool for mana transport."
+      "text": "A barge that holds a Mana pool for mana transport, similar to mana pool minecart but for water."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "littlebotanics:littlemanabarge",
-      "text": "The barge must be docked and part of a tug-train to interface with mana pumps."
+      "text": "To Input and Output Mana from/to the barge you need to use a $(item)Mana Pump$(0), put the Pump on top of a $(l:docks)$(item)Barge docker$(0)$(/l) (Pumps will I/O independently of the docker mode) and the Barge in front/back of the pump. Tugs $(l:spring)$(item)linked$(0)$(/l) to the barge will auto dock if the conditions apply."
     }
   ]
 }

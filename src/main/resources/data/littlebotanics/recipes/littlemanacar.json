@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "botania:mana_pool"
+    },
+    "$": {
+      "item": "littlelogistics:seater_car"
+    }
+  },
+  "pattern": [
+    "   ",
+    " # ",
+    " $ "
+  ],
+  "result": {
+    "item": "littlebotanics:littlemanacar_item"
+  }
+}

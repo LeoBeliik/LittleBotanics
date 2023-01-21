@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "$": {
+      "item": "minecraft:iron_ingot"
+    },
+    "_": {
+      "item": "botania:mana_pool"
+    }
+  },
+  "pattern": [
+    "#_#",
+    "$$$"
+  ],
+  "result": {
+    "item": "littlebotanics:littlemanabarge_item"
+  }
+}
