@@ -30,3 +30,19 @@
 </p>
 
 <h5 align="center"><b>This Mod works on <a href= https://files.minecraftforge.net/net/minecraftforge/forge alt="FORGE"> FORGE</a>.</b></h5>
+
+<h4>Barge mana pool:</h4>
+
+* Can receive and send mana to a pool through a mana pump, similar as how a mana pool minecart work.
+* You need to put the pump on top of a barge docker in order to work.
+* If linked to a tug, the barge will automatically dock if the conditions are met (same conditions to dock as any other barge in Little Logistics).
+* Pump will extract or insert mana independently of the docker mode, Only the pump side matters.
+
+ 
+
+<h4>Car mana pool:</h4>
+
+* Small version of the mana pool minecart from botania, works exactly the same.
+* If the car is linked to a train, it will automatically dock if the conditions are met (same conditions to dock as any other car in Little Logistics).
+* Pump will extract or insert mana independently of the docker mode, Only the pump side matters.
+
