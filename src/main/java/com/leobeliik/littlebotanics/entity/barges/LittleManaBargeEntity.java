@@ -1,6 +1,7 @@
 package com.leobeliik.littlebotanics.entity.barges;
 
 import com.leobeliik.littlebotanics.LittleBotanics;
+import dev.murad.shipping.block.dock.AbstractTailDockTileEntity;
 import dev.murad.shipping.entity.custom.vessel.barge.AbstractBargeEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -108,7 +109,9 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
                 BlockPos poolPos = pumpPos.relative(dir);
                 var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());
 
-                if (receiver instanceof ManaPool pool && pump != null) {
+                shouldDock = receiver instanceof ManaPool && this.allowDockInterface();
+
+                if (receiver instanceof ManaPool pool && pump != null && this.allowDockInterface()) {
                     Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
                     boolean did = false;
                     boolean can = false;
@@ -156,6 +159,21 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
         }
     }
 
+    public boolean shouldDock(Boolean insert, BlockPos p) {
+        if (insert) {
+            for (Direction dir : Direction.Plane.HORIZONTAL) {
+                if (level.getBlockEntity(p.above(2).relative(dir)) instanceof ManaPumpBlockEntity
+                        && level.getBlockEntity(p.above().relative(dir)) instanceof AbstractTailDockTileEntity) {
+                    return shouldDock;
+                }
+            }
+        } else if (level.getBlockEntity(p) instanceof ManaPumpBlockEntity pump
+                && level.getBlockEntity(p.below()) instanceof AbstractTailDockTileEntity) {
+            return shouldDock;
+        }
+        return false;
+    }
+
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag cmp) {
         super.addAdditionalSaveData(cmp);
@@ -166,10 +184,6 @@ public class LittleManaBargeEntity extends AbstractBargeEntity {
     public void readAdditionalSaveData(CompoundTag cmp) {
         super.readAdditionalSaveData(cmp);
         setMana(cmp.getInt(TAG_MANA));
-    }
-
-    public boolean shouldDock() {
-        return shouldDock;
     }
 
     @SoftImplement("IForgeMinecart")

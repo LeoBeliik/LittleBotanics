@@ -128,7 +128,9 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
                 BlockPos poolPos = pumpPos.relative(dir);
                 var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());
 
-                if (receiver instanceof ManaPool pool && pump != null) {
+                shouldDock = receiver instanceof ManaPool;
+
+                if (receiver instanceof ManaPool pool && pump != null && this.allowDockInterface()) {
                     Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
                     boolean did = false;
                     boolean can = false;
@@ -142,7 +144,6 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
                             int transfer = Math.min(TRANSFER_RATE, poolMana);
                             int actualTransfer = Math.min(ManaPoolBlockEntity.MAX_MANA - carMana, transfer);
                             if (actualTransfer > 0) {
-                                if (this.getDeltaMovement().horizontalDistance() != 0) return;
                                 pool.receiveMana(-transfer);
                                 setMana(carMana + actualTransfer);
                                 did = true;
@@ -178,6 +179,19 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
         }
     }
 
+    public boolean shouldDock(Boolean insert, BlockPos p) {
+        if (insert) {
+            for (Direction dir : Direction.Plane.HORIZONTAL) {
+                if (level.getBlockEntity(p.above().relative(dir)) instanceof ManaPumpBlockEntity) {
+                    return shouldDock;
+                }
+            }
+        } else {
+            return level.getBlockEntity(p) instanceof ManaPumpBlockEntity && shouldDock;
+        }
+        return false;
+    }
+
     @Override
     protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
         super.addAdditionalSaveData(cmp);
@@ -188,10 +202,6 @@ public class LittleManaCarEntity extends AbstractWagonEntity {
     protected void readAdditionalSaveData(CompoundTag cmp) {
         super.readAdditionalSaveData(cmp);
         setMana(cmp.getInt(TAG_MANA));
-    }
-
-    public  boolean shouldDock() {
-        return shouldDock;
     }
 
     @SoftImplement("IForgeMinecart")
