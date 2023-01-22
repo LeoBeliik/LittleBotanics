@@ -18,7 +18,9 @@
 <p align="center"> <b> 🔧 Modrinth:   </b> </p>
 <p align="center">
   <a href=https://modrinth.com/mod/little_botanics alt="Downloads">
-  <img src="https://modrinth-utils.vercel.app/api/badge/downloads?id=C7nWsOxY"/> </a>
+  <img src="https://img.shields.io/modrinth/dt/little_botanics?color=00AF5C&label=Downloads&style=flat&logo=modrinth" /> </a>
+  <a href=https://modrinth.com/mod/little_botanics alt="Versions">
+  <img src="https://img.shields.io/modrinth/game-versions/little_botanics?color=00AF5C&label=Version&style=flat&logo=modrinth" /> </a>
 </p>
 
 <p align="center"> <b> Github: </b> </p>
