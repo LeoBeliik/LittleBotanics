@@ -7,18 +7,16 @@
 <br/>
 <p align="center"> <b> 🔥 Curseforge:   </b> </p>
 
-<p align="center"> <b> Forge: </b> </p>
+<p align="center">
 <p align="center">
   <a href="https://www.curseforge.com/minecraft/mc-mods/little-botanics/" alt="Downloads">
-        <img src="http://cf.way2muchnoise.eu/813493.svg" /> </a>
-  <a href="https://www.curseforge.com/minecraft/mc-mods/little-botanics/" alt="Versions">
-        <img src="http://cf.way2muchnoise.eu/versions/813493.svg" /> </a>
+        <img src="http://cf.way2muchnoise.eu/full_813493_downloads.svg" /> </a>
 </p>
 
 <p align="center"> <b> 🔧 Modrinth:   </b> </p>
 <p align="center">
   <a href=https://modrinth.com/mod/little_botanics alt="Downloads">
-  <img src="https://modrinth-utils.vercel.app/api/badge/downloads?id=C7nWsOxY"/> </a>
+  <img src="https://img.shields.io/modrinth/dt/little_botanics?color=00AF5C&label=Downloads&style=flat&logo=modrinth" /> </a>
 </p>
 
 <p align="center"> <b> Github: </b> </p>
