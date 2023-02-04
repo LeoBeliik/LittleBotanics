@@ -12,7 +12,7 @@ plugins {
 
 apply plugin: 'org.spongepowered.mixin'
 
-version = "1.${mod_version}-${mc_version}"
+version = "1.${mod_version}-forge-${mc_version}"
 group = 'com.leobeliik.littlebotanics' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'littlebotanics'
 
@@ -108,9 +108,9 @@ mixin {
 tasks.register("version_up") {
     doFirst {
         def gp = file("gradle.properties")
-        def mv = "${modversion}".toInteger() + 1
+        def mv = "${mod_version}".toInteger() + 1
 
-        gp.setText(gp.getText().replace("modversion = " + "${modversion}", "modversion = " + mv.toString()))
+        gp.setText(gp.getText().replace("mod_version = " + "${mod_version}", "mod_version = " + mv.toString()))
     }
 }
 
@@ -118,12 +118,12 @@ tasks.register("version_up") {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "LittleBotanics",
-                "Specification-Vendor"    : "LeoBeliik",
-                "Specification-Version"   : "${mod_version}_forge-${mc_version}",
-                "Implementation-Title"    : "Little botanics",
-                "Implementation-Version"  : "${mod_version}_forge-${mc_version}",
-                "Implementation-Vendor"   : "LeoBeliik",
+                "Specification-Title"     : mod_name,
+                "Specification-Vendor"    : mod_author,
+                "Specification-Version"   : project.jar.archiveVersion,
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : mod_author,
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 "MixinConnector"          : "com.leobeliik.littlebotanics.MixinConnector"
         ])

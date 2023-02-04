@@ -5,7 +5,7 @@ licenseURL= "https://github.com/LeoBeliik/LittleBotanics/blob/aac83dd1277d890842
 issueTrackerURL="https://github.com/LeoBeliik/LittleBotanics/issues"
 [[mods]]
 modId="littlebotanics"
-version="1.${file.jarVersion}"
+version="${file.jarVersion}"
 displayName="Little Botanics"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/little-botanics"
 authors="LeoBeliik"
