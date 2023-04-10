@@ -1,6 +1,5 @@
 name: Bug Report
 description: For bug reports not feature requests.
-title: "🐞 "
 labels: [bug]
 body: 
   - type: input
